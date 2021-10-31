@@ -68,6 +68,9 @@
                                                             </attributedString>
                                                             <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </buttonConfiguration>
+                                                        <connections>
+                                                            <action selector="logInBtmPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="hcp-UG-ikg"/>
+                                                        </connections>
                                                     </button>
                                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="neP-us-v9x">
                                                         <rect key="frame" x="0.0" y="168.5" width="354" height="41"/>
@@ -145,7 +148,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="305.79710144927537" y="116.51785714285714"/>
+            <point key="canvasLocation" x="180" y="125"/>
         </scene>
         <!--Register View Controller-->
         <scene sceneID="SzT-1r-HLM">
@@ -161,13 +164,6 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uaa-al-yST">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                                         <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="2Td-oR-NFg">
-                                                <rect key="frame" x="116" y="129.5" width="182" height="169"/>
-                                                <color key="tintColor" systemColor="secondaryLabelColor"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="170" id="QgJ-hd-QZf"/>
-                                                </constraints>
-                                            </imageView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="PBU-q3-WQC">
                                                 <rect key="frame" x="30" y="412" width="354" height="230"/>
                                                 <subviews>
@@ -187,13 +183,13 @@
                                                         <rect key="frame" x="0.0" y="98" width="354" height="34"/>
                                                         <color key="backgroundColor" systemColor="secondaryLabelColor"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                        <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                                        <textInputTraits key="textInputTraits"/>
                                                     </textField>
                                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Rwy-89-sXd">
                                                         <rect key="frame" x="0.0" y="147" width="354" height="34"/>
                                                         <color key="backgroundColor" systemColor="secondaryLabelColor"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                        <textInputTraits key="textInputTraits"/>
+                                                        <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                                     </textField>
                                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GwQ-XM-fen">
                                                         <rect key="frame" x="0.0" y="196" width="354" height="34"/>
@@ -211,6 +207,9 @@
                                                             </attributedString>
                                                             <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </buttonConfiguration>
+                                                        <connections>
+                                                            <action selector="registerBtnPressed:" destination="cjU-QF-bOp" eventType="touchUpInside" id="3lr-Dl-dSn"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                             </stackView>
@@ -228,17 +227,22 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MgM-Wp-uFD">
+                                                <rect key="frame" x="93" y="126" width="229" height="184"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain" image="person.circle" catalog="system">
+                                                    <attributedString key="attributedTitle"/>
+                                                </buttonConfiguration>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
-                                            <constraint firstItem="2Td-oR-NFg" firstAttribute="leading" secondItem="uaa-al-yST" secondAttribute="leading" constant="116" id="4e8-Bc-RND"/>
                                             <constraint firstItem="PBU-q3-WQC" firstAttribute="leading" secondItem="uaa-al-yST" secondAttribute="leading" constant="30" id="6Ae-RG-Lrd"/>
                                             <constraint firstAttribute="trailing" secondItem="1hX-JW-DO3" secondAttribute="trailing" constant="70" id="9WT-Vf-bFo"/>
                                             <constraint firstItem="mfS-qP-jKC" firstAttribute="leading" secondItem="uaa-al-yST" secondAttribute="leading" constant="76" id="Q4q-AS-nWo"/>
                                             <constraint firstItem="1hX-JW-DO3" firstAttribute="top" secondItem="PBU-q3-WQC" secondAttribute="bottom" constant="52" id="RTN-Hg-sHA"/>
-                                            <constraint firstItem="2Td-oR-NFg" firstAttribute="top" secondItem="uaa-al-yST" secondAttribute="top" constant="129" id="Vb3-G1-0Td"/>
                                             <constraint firstAttribute="height" constant="842" id="WBT-5I-yhp"/>
-                                            <constraint firstAttribute="trailing" secondItem="2Td-oR-NFg" secondAttribute="trailing" constant="116" id="dQ3-IQ-lhi"/>
                                             <constraint firstAttribute="bottom" secondItem="PBU-q3-WQC" secondAttribute="bottom" constant="200" id="gtR-Tl-PQf"/>
                                             <constraint firstItem="mfS-qP-jKC" firstAttribute="centerY" secondItem="1hX-JW-DO3" secondAttribute="centerY" id="lcj-BJ-b59"/>
                                             <constraint firstAttribute="trailing" secondItem="PBU-q3-WQC" secondAttribute="trailing" constant="30" id="qaH-7H-ymv"/>
@@ -268,11 +272,11 @@
                         <outlet property="firstNameTextField" destination="vqp-AV-tLa" id="5ZO-Zu-9Gu"/>
                         <outlet property="goToLoginBtn" destination="1hX-JW-DO3" id="ykC-aL-J4D"/>
                         <outlet property="lastNameTextField" destination="Ia5-BE-fQ5" id="y6l-HF-LlZ"/>
+                        <outlet property="profileImageBtn" destination="MgM-Wp-uFD" id="Cia-1K-zYE"/>
                         <outlet property="regEmailTextField" destination="bD3-y0-UKy" id="B9S-e7-tqe"/>
                         <outlet property="regPasswordTextField" destination="Rwy-89-sXd" id="WWB-n4-7JN"/>
                         <outlet property="regQuestionLabel" destination="mfS-qP-jKC" id="r9c-Ae-6kt"/>
-                        <outlet property="registerBtn" destination="GwQ-XM-fen" id="noM-QB-5xy"/>
-                        <outlet property="registerImage" destination="2Td-oR-NFg" id="m0r-B1-ci1"/>
+                        <outlet property="registerBtn" destination="GwQ-XM-fen" id="zHP-n2-d2W"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="I7F-vR-gst" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

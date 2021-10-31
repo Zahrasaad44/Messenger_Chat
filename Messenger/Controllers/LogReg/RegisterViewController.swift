@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class RegisterViewController: UIViewController {
 
@@ -14,10 +15,14 @@ class RegisterViewController: UIViewController {
     @IBOutlet weak var regEmailTextField: UITextField!
     @IBOutlet weak var regPasswordTextField: UITextField!
     @IBOutlet weak var registerBtn: UIButton!
-    @IBOutlet weak var registerImage: UIImageView!
+    
+    @IBOutlet weak var profileImageBtn: UIButton!
     
     @IBOutlet weak var regQuestionLabel: UILabel!
     
+    @IBAction func registerBtnPressed(_ sender: UIButton) {
+        createAccount()
+    }
     @IBOutlet weak var goToLoginBtn: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,6 +64,15 @@ class RegisterViewController: UIViewController {
     @IBAction func goToLogInBtnPressed(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
     }
-    
-
+    func createAccount() {
+        Auth.auth().createUser(withEmail: regEmailTextField.text!, password: regPasswordTextField.text!, completion: {authResult, error in
+           
+        guard let result = authResult, error == nil else {
+            print("Error creating user, \(error)")  // password should be >= 6 char 
+            return
+        }
+        let user = result.user
+        print("User created successfully. User: \(user)")
+    })
+    }
 }

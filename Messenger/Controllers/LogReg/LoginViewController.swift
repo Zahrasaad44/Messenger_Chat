@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseAuth
 
 class LoginViewController: UIViewController {
     
@@ -17,6 +19,7 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var goToRegBtn: UIButton!
     @IBOutlet weak var questionLabel: UILabel!
     @IBOutlet weak var messengerIcon: UIImageView!
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -52,4 +55,19 @@ class LoginViewController: UIViewController {
         self.navigationController?.pushViewController(regVC, animated: true)
     }
     
+    
+    @IBAction func logInBtmPressed(_ sender: Any) {
+        loginUser()
+    }
+    
+    func loginUser() {
+        Auth.auth().signIn(withEmail: emailTextField.text!, password: passwordTextField.text!, completion: { authresult, error in
+            guard let result = authresult, error == nil else {
+                print("Failed to log in user with email: \(String(describing: self.emailTextField.text))")
+                return
+            }
+            let user = result.user
+            print("User: \(user) successfully logged in")
+        })
+    }
 }
