@@ -22,7 +22,7 @@ class LoginViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.title = "Log In"
         emailTextField.placeholder = "Email Address..."
         passwordTextField.placeholder = "Password..."
         
@@ -51,8 +51,9 @@ class LoginViewController: UIViewController {
         
     }
     @IBAction func goToRegBtnPressed(_ sender: UIButton) {
-        let regVC = self.storyboard?.instantiateViewController(withIdentifier: "RegisterVC") as! RegisterViewController;
+        let regVC = self.storyboard?.instantiateViewController(withIdentifier: "RegisterVC") as! RegisterViewController
         self.navigationController?.pushViewController(regVC, animated: true)
+        
     }
     
     
