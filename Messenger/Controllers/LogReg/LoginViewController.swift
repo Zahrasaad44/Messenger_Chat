@@ -23,52 +23,64 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Log In"
-        emailTextField.placeholder = "Email Address..."
-        passwordTextField.placeholder = "Password..."
-        
-        emailTextField.backgroundColor = .white
-        passwordTextField.backgroundColor = .white
-        
-        emailTextField.layer.borderWidth = 1
-        passwordTextField.layer.borderWidth = 1
-        
-        emailTextField.layer.cornerRadius = 10
-        passwordTextField.layer.cornerRadius = 10
-
-        emailTextField.layer.borderColor = UIColor.lightGray.cgColor
-        passwordTextField.layer.borderColor = UIColor.lightGray.cgColor
-        
-        emailTextField.addConstraint(emailTextField.heightAnchor.constraint(equalToConstant: 50))
-        
-        loginBtn.layer.cornerRadius = 10
-        loginFacebookBtn.layer.cornerRadius = 0
-        
-        messengerIcon.image = UIImage(named: "Messenger-Logo")
-        
-        questionLabel.text = "Don't have account yet?"
-        goToRegBtn.setTitle("Register", for: .normal)
-        
         
     }
+    
     @IBAction func goToRegBtnPressed(_ sender: UIButton) {
         let regVC = self.storyboard?.instantiateViewController(withIdentifier: "RegisterVC") as! RegisterViewController
         self.navigationController?.pushViewController(regVC, animated: true)
         
     }
     
-    
     @IBAction func logInBtmPressed(_ sender: Any) {
         loginUser()
     }
     
+    
+    /*
+    func loggedInUser() {
+        //if Auth.auth().currentUser != nil {
+            
+        //}
+        let isLoggedin = UserDefaults.standard.object(forKey: "loggedin")
+        if isLoggedin != nil {
+            let viewIs = ConversationsViewController()
+            let nav = UINavigationController(rootViewController: viewIs)
+            nav.modalPresentationStyle = .fullScreen
+            present(nav, animated: false)
+        }
+    }
+    */
+    
+    
+    
+    
     func loginUser() {
-        Auth.auth().signIn(withEmail: emailTextField.text!, password: passwordTextField.text!, completion: { authresult, error in
+        
+        Auth.auth().signIn(withEmail: emailTextField.text!, password: passwordTextField.text!, completion: { [weak self] authresult, error in
+            guard let strongSelf = self else {
+                return
+            }
             guard let result = authresult, error == nil else {
-                print("Failed to log in user with email: \(String(describing: self.emailTextField.text))")
+                
+                let logInAlert = UIAlertController(title: "Unable to Log In", message: "Email or password is incorrect", preferredStyle: .alert)
+                logInAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
+                    
+                    self?.navigationController?.popViewController(animated: true)
+                }))
+                
+                self?.present(logInAlert, animated: true, completion: nil)
+                
+                print("Failed to log in user with email: \(String(describing: self?.emailTextField.text))")
                 return
             }
             let user = result.user
+            let conVC = self?.storyboard?.instantiateViewController(withIdentifier: "conVC") as! ConversationsViewController
+            self?.navigationController?.pushViewController(conVC, animated: true)
+            strongSelf.navigationController?.dismiss(animated: true, completion: nil)
             print("User: \(user) successfully logged in")
+            
+            
         })
     }
 }

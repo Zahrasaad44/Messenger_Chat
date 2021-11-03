@@ -35,64 +35,55 @@ class RegisterViewController: UIViewController {
         super.viewDidLoad()
         
         self.title = "Create an Account"
-        firstNameTextField.placeholder = "First Name..."
-        lastNameTextField.placeholder = "Last Name..."
-        regEmailTextField.placeholder = "Email Address..."
-        regPasswordTextField.placeholder = "Password (must has 6 characters or more)..."
         
-        firstNameTextField.backgroundColor = .white
-        lastNameTextField.backgroundColor = .white
-        regEmailTextField.backgroundColor = .white
-        regPasswordTextField.backgroundColor = .white
         
-        firstNameTextField.layer.borderWidth = 1
-        lastNameTextField.layer.borderWidth = 1
-        regEmailTextField.layer.borderWidth = 1
-        regPasswordTextField.layer.borderWidth = 1
-        
-        firstNameTextField.layer.cornerRadius = 10
-        lastNameTextField.layer.cornerRadius = 10
-        regEmailTextField.layer.cornerRadius = 10
-        regPasswordTextField.layer.cornerRadius = 10
-        
-        firstNameTextField.layer.borderColor = UIColor.lightGray.cgColor
-        lastNameTextField.layer.borderColor = UIColor.lightGray.cgColor
-        regEmailTextField.layer.borderColor = UIColor.lightGray.cgColor
-        regPasswordTextField.layer.borderColor = UIColor.lightGray.cgColor
-        
-        firstNameTextField.addConstraint(firstNameTextField.heightAnchor.constraint(equalToConstant: 50))
-        
-        registerBtn.layer.cornerRadius = 10
-        goToLoginBtn.setTitle("Log In", for: .normal)
-        regQuestionLabel.text = "Already have an account?"
         profileImageView.layer.masksToBounds = false
         profileImageView.clipsToBounds = true
-        profileImageView.layer.cornerRadius = profileImageView.frame.size.height/2 
+        profileImageView.layer.cornerRadius = profileImageView.frame.size.height/2   
     }
 
     @IBAction func goToLogInBtnPressed(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
     }
-    
-    func createAccount() {
-        Auth.auth().createUser(withEmail: regEmailTextField.text!, password: regPasswordTextField.text!, completion: {authResult, error in
-           
-        guard let result = authResult, error == nil else {
-            print("Error creating user, \(String(describing: error?.localizedDescription))")  // password should be >= 6 characters 
+    /*
+    DatabaseManager.shared.userExists(with: regEmailTextField.text!, completion: { exists in
+        guard !exists else {
+            //show alert (error) user already exist, alert
             return
         }
-        let user = result.user
-        print("User created successfully. User: \(user)")
     })
-        let regAlert = UIAlertController(title: "Account is Successfully Created", message: "User's email: \(regEmailTextField.text!)", preferredStyle: .alert)
-        regAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
-            
-            self.navigationController?.popViewController(animated: true)
-        }))
-        present(regAlert, animated: true, completion: nil)
-    }
+    */
+    func createAccount() {
+            Auth.auth().createUser(withEmail: regEmailTextField.text!, password: regPasswordTextField.text!, completion: {authResult, error in
+               
+            guard let result = authResult, error == nil else {
+                
+                print("Error creating user, \(String(describing: error?.localizedDescription))")  // password should be >= 6 characters
+                return
+            }
+                
+                DatabaseManager.shared.insertUser(with: ChatAppUser(firstName: self.firstNameTextField.text!, lastName: self.lastNameTextField.text!, emailAddress: self.regEmailTextField.text!)) { isInserted in
+                    if isInserted == true {
+                        debugPrint("true")
+                    } else {
+                        print("insertion failed")
+                        
+                    }
+                }
+                
+            let user = result.user
+            print("User created successfully. User: \(user)")
+                let regAlert = UIAlertController(title: "Account is Successfully Created", message: "User's email: \(self.regEmailTextField.text!)", preferredStyle: .alert)
+                regAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
+                    
+                    self.navigationController?.popViewController(animated: true)
+                }))
+                self.present(regAlert, animated: true, completion: nil)
+            })
+           
+        }
+    
 }
-
 
 extension RegisterViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     // get results of user taking picture or selecting from camera roll
