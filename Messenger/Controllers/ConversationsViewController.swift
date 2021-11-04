@@ -12,7 +12,7 @@ class ConversationsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .red
+        
        /*
         do {
             try FirebaseAuth.Auth.auth().signOut()  // "signOut" method throws an error
@@ -30,8 +30,10 @@ class ConversationsViewController: UIViewController {
 
     private func validateAuth() {
         if FirebaseAuth.Auth.auth().currentUser == nil {
-            let viewIs = LoginViewController()
-            let nav = UINavigationController(rootViewController: viewIs)    // Present LoginViewController if there is no user loggrd in (currentUser == nil)
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+              let loginVC = storyboard.instantiateViewController(identifier: "LoginVC")
+           // let viewIs = LoginViewController()
+            let nav = UINavigationController(rootViewController: loginVC)    // Present LoginViewController if there is no user loggrd in (currentUser == nil)
             nav.modalPresentationStyle = .fullScreen
             present(nav, animated: false)
         }

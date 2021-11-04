@@ -6,24 +6,61 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class ProfileViewController: UIViewController {
 
+    @IBOutlet weak var profileTableView: UITableView!
+    
+    let data = ["log Out"]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        profileTableView.delegate = self
+        profileTableView.dataSource = self
+    
     }
     
+}
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return data.count
     }
-    */
-
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = profileTableView.dequeueReusableCell(withIdentifier: "profileCell", for: indexPath)
+        cell.textLabel?.text = data[indexPath.row]
+        cell.textLabel?.textAlignment = .center
+        cell.textLabel?.textColor = .red
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        let logoutAlert = UIAlertController(title: "Log Out", message: "Are you sure you want to log Out?", preferredStyle: .alert)
+        logoutAlert.addAction(UIAlertAction(title: "Log Out", style: .destructive, handler: { [weak self] _ in  // "destructive" to make the "title" red
+            // to avoid "retain cycle"
+            guard let strongSelf = self else {
+                return
+            }
+            do {    // the action to be handled once the "log Out" selected
+                try FirebaseAuth.Auth.auth().signOut()
+                let viewIs = LoginViewController()
+                let nav = UINavigationController(rootViewController: viewIs)    // To go to the LoginViewController after clicking on the cell
+                nav.modalPresentationStyle = .fullScreen
+                strongSelf.present(nav, animated: true)
+                
+            } catch {
+                print("Failed to log out ")
+            }
+        }))
+        
+        logoutAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        present(logoutAlert, animated: true)
+        
+        
+    }
+  
 }
