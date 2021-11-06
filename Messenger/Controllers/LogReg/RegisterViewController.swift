@@ -7,6 +7,7 @@
 
 import UIKit
 import FirebaseAuth
+import JGProgressHUD
 
 class RegisterViewController: UIViewController {
 
@@ -24,13 +25,17 @@ class RegisterViewController: UIViewController {
     
     @IBAction func registerBtnPressed(_ sender: UIButton) {
         createAccount()
+        spinner.show(in: view)
     }
     @IBAction func profileBtnPressed(_ sender: UIButton) {
         displayPhotoActionSheet()
     }
     
     @IBOutlet weak var goToLoginBtn: UIButton!
+    
     let photoPickerSelected = UIImagePickerController()
+    private let spinner = JGProgressHUD(style: .dark)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -64,10 +69,13 @@ class RegisterViewController: UIViewController {
                 
                 DatabaseManager.shared.insertUser(with: ChatAppUser(firstName: self.firstNameTextField.text!, lastName: self.lastNameTextField.text!, emailAddress: self.regEmailTextField.text!)) { isInserted in
                     if isInserted == true {
-                        debugPrint("true")
+                        debugPrint("User inserted successfully")
                     } else {
                         print("insertion failed")
                         
+                    }
+                    DispatchQueue.main.async {
+                        self.spinner.dismiss()
                     }
                 }
                 

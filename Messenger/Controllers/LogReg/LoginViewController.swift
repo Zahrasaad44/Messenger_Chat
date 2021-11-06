@@ -8,6 +8,7 @@
 import UIKit
 import Firebase
 import FirebaseAuth
+import JGProgressHUD
 
 class LoginViewController: UIViewController {
     
@@ -19,6 +20,8 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var goToRegBtn: UIButton!
     @IBOutlet weak var questionLabel: UILabel!
     @IBOutlet weak var messengerIcon: UIImageView!
+    
+    private let spinner = JGProgressHUD(style: .dark)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +37,8 @@ class LoginViewController: UIViewController {
     
     @IBAction func logInBtmPressed(_ sender: Any) {
         loginUser()
+        spinner.show(in: view)
+        
     }
     
     
@@ -52,14 +57,15 @@ class LoginViewController: UIViewController {
     }
     */
     
-    
-    
-    
+   
     func loginUser() {
         
         Auth.auth().signIn(withEmail: emailTextField.text!, password: passwordTextField.text!, completion: { [weak self] authresult, error in
-            guard let strongSelf = self else {
+            guard let strongSelf = self else {    //"weak self" and "strongSelf" are to avoid retain cycle 
                 return
+            }
+            DispatchQueue.main.async {
+                strongSelf.spinner.dismiss()  //To remove the spinner after finishing the login in the firebase
             }
             guard let result = authresult, error == nil else {
                 

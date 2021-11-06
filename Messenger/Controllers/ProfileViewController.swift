@@ -47,8 +47,9 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
             }
             do {    // the action to be handled once the "log Out" selected
                 try FirebaseAuth.Auth.auth().signOut()
-                let viewIs = LoginViewController()
-                let nav = UINavigationController(rootViewController: viewIs)    // To go to the LoginViewController after clicking on the cell
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let loginVC = storyboard.instantiateViewController(identifier: "LoginVC")                //let viewIs = LoginViewController()
+                let nav = UINavigationController(rootViewController: loginVC)    // To go to the LoginViewController after clicking on the cell
                 nav.modalPresentationStyle = .fullScreen
                 strongSelf.present(nav, animated: true)
                 
@@ -60,7 +61,18 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
         logoutAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         present(logoutAlert, animated: true)
         
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)  //To navigate amoung the controllers of the storyboard (Main)
+          let loginVC = storyboard.instantiateViewController(identifier: "LoginVC")
+       // let viewIs = LoginViewController()
+        let nav = UINavigationController(rootViewController: loginVC)    // Present LoginViewController if there is no user loggrd in (currentUser == nil)
+        nav.modalPresentationStyle = .fullScreen
+        present(nav, animated: false)
         
+        
+        
+        /*
+        let loginVC = self.storyboard?.instantiateViewController(withIdentifier: "LoginVC") as! LoginViewController
+        self.navigationController?.pushViewController(loginVC, animated: true)
+         */
     }
-  
 }

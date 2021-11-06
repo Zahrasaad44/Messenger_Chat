@@ -10,6 +10,9 @@
 		1F1297DA249237CF6910C770 /* Pods_MessengerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C990C6DB1F5A0803E0D655D6 /* Pods_MessengerTests.framework */; };
 		46DA310A75DFFE26BF2B09BF /* Pods_Messenger_MessengerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C26EE78280AAAB56E9ABEC9 /* Pods_Messenger_MessengerUITests.framework */; };
 		85A949A2DBD16A7D251050E3 /* Pods_Messenger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 865228EA862AB863A855C602 /* Pods_Messenger.framework */; };
+		C35626FD2735EC79009E5AA0 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C35626FC2735EC79009E5AA0 /* ChatViewController.swift */; };
+		C3562700273609FA009E5AA0 /* MessageKit in Frameworks */ = {isa = PBXBuildFile; productRef = C35626FF273609FA009E5AA0 /* MessageKit */; };
+		C356270327360B9E009E5AA0 /* InputBarAccessoryView in Frameworks */ = {isa = PBXBuildFile; productRef = C356270227360B9E009E5AA0 /* InputBarAccessoryView */; };
 		C35F1E562729456F003C1A93 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C35F1E552729456F003C1A93 /* AppDelegate.swift */; };
 		C35F1E582729456F003C1A93 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C35F1E572729456F003C1A93 /* SceneDelegate.swift */; };
 		C35F1E5D2729456F003C1A93 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C35F1E5B2729456F003C1A93 /* Main.storyboard */; };
@@ -24,6 +27,7 @@
 		C35F1E9427297C4E003C1A93 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C35F1E9327297C4E003C1A93 /* ProfileViewController.swift */; };
 		C35F1E962729D561003C1A93 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C35F1E8E27297BA0003C1A93 /* RegisterViewController.swift */; };
 		C35F1E982729E691003C1A93 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C35F1E972729E691003C1A93 /* LoginViewController.swift */; };
+		C3BC6E41273413D600D2088E /* JGProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = C3BC6E40273413D600D2088E /* JGProgressHUD */; };
 		C3E599762730B3E000EC9E69 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E599752730B3E000EC9E69 /* DatabaseManager.swift */; };
 		C3EB863A273158FD00A8B930 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C3EB8639273158FD00A8B930 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
@@ -51,6 +55,7 @@
 		6C26EE78280AAAB56E9ABEC9 /* Pods_Messenger_MessengerUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Messenger_MessengerUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		865228EA862AB863A855C602 /* Pods_Messenger.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Messenger.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACB8703B0404857BCF02ADE4 /* Pods-MessengerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MessengerTests.debug.xcconfig"; path = "Target Support Files/Pods-MessengerTests/Pods-MessengerTests.debug.xcconfig"; sourceTree = "<group>"; };
+		C35626FC2735EC79009E5AA0 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		C35F1E522729456F003C1A93 /* Messenger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Messenger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C35F1E552729456F003C1A93 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C35F1E572729456F003C1A93 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -82,6 +87,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C3562700273609FA009E5AA0 /* MessageKit in Frameworks */,
+				C356270327360B9E009E5AA0 /* InputBarAccessoryView in Frameworks */,
+				C3BC6E41273413D600D2088E /* JGProgressHUD in Frameworks */,
 				85A949A2DBD16A7D251050E3 /* Pods_Messenger.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -223,6 +231,7 @@
 				C35F1E8C27297B65003C1A93 /* ConversationsViewController.swift */,
 				C35F1E9127297C27003C1A93 /* NewConversationViewController.swift */,
 				C35F1E9327297C4E003C1A93 /* ProfileViewController.swift */,
+				C35626FC2735EC79009E5AA0 /* ChatViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -254,6 +263,11 @@
 			dependencies = (
 			);
 			name = Messenger;
+			packageProductDependencies = (
+				C3BC6E40273413D600D2088E /* JGProgressHUD */,
+				C35626FF273609FA009E5AA0 /* MessageKit */,
+				C356270227360B9E009E5AA0 /* InputBarAccessoryView */,
+			);
 			productName = Messenger;
 			productReference = C35F1E522729456F003C1A93 /* Messenger.app */;
 			productType = "com.apple.product-type.application";
@@ -329,6 +343,12 @@
 				Base,
 			);
 			mainGroup = C35F1E492729456F003C1A93;
+			packageReferences = (
+				C3BC6E3F273413D600D2088E /* XCRemoteSwiftPackageReference "JGProgressHUD" */,
+				C3BC6E42273416A200D2088E /* XCRemoteSwiftPackageReference "SDWebImage" */,
+				C35626FE273609FA009E5AA0 /* XCRemoteSwiftPackageReference "MessageKit" */,
+				C356270127360B9E009E5AA0 /* XCRemoteSwiftPackageReference "InputBarAccessoryView" */,
+			);
 			productRefGroup = C35F1E532729456F003C1A93 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -484,6 +504,7 @@
 				C35F1E562729456F003C1A93 /* AppDelegate.swift in Sources */,
 				C35F1E9427297C4E003C1A93 /* ProfileViewController.swift in Sources */,
 				C35F1E582729456F003C1A93 /* SceneDelegate.swift in Sources */,
+				C35626FD2735EC79009E5AA0 /* ChatViewController.swift in Sources */,
 				C3E599762730B3E000EC9E69 /* DatabaseManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -858,6 +879,59 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		C35626FE273609FA009E5AA0 /* XCRemoteSwiftPackageReference "MessageKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/MessageKit/MessageKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
+		C356270127360B9E009E5AA0 /* XCRemoteSwiftPackageReference "InputBarAccessoryView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/nathantannar4/InputBarAccessoryView.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.4.0;
+			};
+		};
+		C3BC6E3F273413D600D2088E /* XCRemoteSwiftPackageReference "JGProgressHUD" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/JonasGessner/JGProgressHUD.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
+		C3BC6E42273416A200D2088E /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImage.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		C35626FF273609FA009E5AA0 /* MessageKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C35626FE273609FA009E5AA0 /* XCRemoteSwiftPackageReference "MessageKit" */;
+			productName = MessageKit;
+		};
+		C356270227360B9E009E5AA0 /* InputBarAccessoryView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C356270127360B9E009E5AA0 /* XCRemoteSwiftPackageReference "InputBarAccessoryView" */;
+			productName = InputBarAccessoryView;
+		};
+		C3BC6E40273413D600D2088E /* JGProgressHUD */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C3BC6E3F273413D600D2088E /* XCRemoteSwiftPackageReference "JGProgressHUD" */;
+			productName = JGProgressHUD;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = C35F1E4A2729456F003C1A93 /* Project object */;
 }
