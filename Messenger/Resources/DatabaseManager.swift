@@ -44,7 +44,7 @@ extension DatabaseManager {
                 completion(false)
                 return
             }
-            
+           completion(true)
         }
         // user exist?
         database.child(user.safeEmail).observeSingleEvent(of: .value, with: { snapshot in  // Calling useExists function so that i 
@@ -61,7 +61,10 @@ struct ChatAppUser {
     let firstName: String
     let lastName: String
     let emailAddress: String
-    //let profilePictureUrl: String
+    var profilePictureFileName: String {
+        //zahra-gmail-com_profile_picture.png <---  the structure of the image url
+        return "\(safeEmail)_profile_picture.png"
+    }
     
     var safeEmail: String {
         var safeEmail = emailAddress.replacingOccurrences(of: ".", with: "-")

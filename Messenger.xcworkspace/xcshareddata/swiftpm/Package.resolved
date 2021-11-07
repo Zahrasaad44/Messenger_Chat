@@ -2,6 +2,15 @@
   "object": {
     "pins": [
       {
+        "package": "InputBarAccessoryView",
+        "repositoryURL": "https://github.com/nathantannar4/InputBarAccessoryView.git",
+        "state": {
+          "branch": null,
+          "revision": "6d3d205f29b80f8fa9a9616ad801c488293242bf",
+          "version": "5.4.0"
+        }
+      },
+      {
         "package": "JGProgressHUD",
         "repositoryURL": "https://github.com/JonasGessner/JGProgressHUD.git",
         "state": {
@@ -14,9 +23,9 @@
         "package": "MessageKit",
         "repositoryURL": "https://github.com/MessageKit/MessageKit.git",
         "state": {
-          "branch": "master",
-          "revision": "9b3bfea9f0b0a6c1aa4b11e4aa7f202f9a072e4b",
-          "version": null
+          "branch": null,
+          "revision": "771ffe946acc495a79a122ded921f3460686ee04",
+          "version": "3.7.0"
         }
       },
       {

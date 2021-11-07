@@ -66,13 +66,26 @@ class RegisterViewController: UIViewController {
                 print("Error creating user, \(String(describing: error?.localizedDescription))")  // password should be >= 6 characters
                 return
             }
+                // Instance of ChatAppUser struct
+                let chatUser = ChatAppUser(firstName: self.firstNameTextField.text!, lastName: self.self.lastNameTextField.text!, emailAddress: self.regEmailTextField.text!)
                 
-                DatabaseManager.shared.insertUser(with: ChatAppUser(firstName: self.firstNameTextField.text!, lastName: self.lastNameTextField.text!, emailAddress: self.regEmailTextField.text!)) { isInserted in
+                DatabaseManager.shared.insertUser(with: chatUser) { isInserted in
                     if isInserted == true {
+                        guard let profileImage = self.profileImageView.image, let data = profileImage.pngData() else {
+                         debugPrint("insertion failed")
+                           return
+                        }
+                        let filename = chatUser.profilePictureFileName
+                        StorageManager.shared.uploadProfilePicture(with: data, fileName: filename, completion: {result in
+                            switch result {   // the "result" has <String, Error>, .success(String) and .faliure(Error)
+                            case .success(let downloadUrl):
+                                UserDefaults.standard.set(downloadUrl, forKey: "profile_picture_url")
+                                print(downloadUrl)
+                            case .failure(let error):
+                                print("Storage magager error: \(error)")
+                            }
+                        })
                         debugPrint("User inserted successfully")
-                    } else {
-                        print("insertion failed")
-                        
                     }
                     DispatchQueue.main.async {
                         self.spinner.dismiss()
