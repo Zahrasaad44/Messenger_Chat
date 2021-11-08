@@ -25,6 +25,13 @@ class RegisterViewController: UIViewController {
     
     @IBAction func registerBtnPressed(_ sender: UIButton) {
         createAccount()
+        
+        guard let firstName = firstNameTextField.text, let lastName = lastNameTextField.text, let email = regEmailTextField.text, let password = regPasswordTextField.text, !firstName.isEmpty, !lastName.isEmpty, !email.isEmpty, !password.isEmpty, password.count >= 6 else {
+            let unfilledTextFieldsAlert = UIAlertController(title: "Something is Missing ", message: "All fields are required", preferredStyle: .alert)
+            unfilledTextFieldsAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.present(unfilledTextFieldsAlert, animated: true, completion: nil)
+            return
+        }
         spinner.show(in: view)
     }
     @IBAction func profileBtnPressed(_ sender: UIButton) {

@@ -14,7 +14,10 @@ final class DatabaseManager {  // "final" means it can't be subclassed
     
     private let database = Database.database().reference() // creating database reference
     
-    
+    static func safeEmail(emailAddress: String) -> String{
+        var safeEmail = emailAddress.replacingOccurrences(of: ".", with: "-")
+        safeEmail = safeEmail.replacingOccurrences(of: "@", with: "-")
+        return safeEmail    }
 }
 // MARK: - account management
 extension DatabaseManager {
@@ -44,7 +47,38 @@ extension DatabaseManager {
                 completion(false)
                 return
             }
-           completion(true)
+            // To add the user into an array of users, the array contain the "name" and "email"
+            self.database.child("users").observeSingleEvent(of: .value, with: { snapshot in
+                if var usersCollection = snapshot.value as? [[String: String]] {   // usersCollection is an array of dictionary
+                   // Appending the user to the users array
+                    let newUser = ["name": user.firstName + " " + user.lastName, // To have the full name of the user
+                                   "email": user.safeEmail]
+                    usersCollection.append(newUser)
+                    
+                    self.database.child("users").setValue(usersCollection, withCompletionBlock: { error, _ in
+                        guard error == nil else {
+                            completion(false)
+                            return
+                        }
+                    completion(true)
+                        
+                    })
+                }
+                else {  // creating the users array if it doesn't exist. That is for the very first user
+                    let newCollection: [[String: String]] = [
+                        ["name": user.firstName + " " + user.lastName,
+                         "email": user.safeEmail]
+                    ]
+                    self.database.child("users").setValue(newCollection, withCompletionBlock: { error, _ in
+                        guard error == nil else {
+                            completion(false)
+                            return
+                        }
+                    completion(true)
+                        
+                    })
+                }
+            })
         }
         // user exist?
         database.child(user.safeEmail).observeSingleEvent(of: .value, with: { snapshot in  // Calling useExists function so that i 
@@ -54,9 +88,20 @@ extension DatabaseManager {
             completion(false)
         }
     }
-
+    public func getAllUsers(completion: @escaping (Result<[[String: String]], Error>) -> Void) {
+        database.child("users").observeSingleEvent(of: .value, with: {snapshot in
+            guard let value = snapshot.value as? [[String: String]] else {
+                completion(.failure(DatabaseError.failedToFetch))
+                return
+            }
+            completion(.success(value))
+        })
+    }
+    
+    public enum DatabaseError: Error {
+        case failedToFetch
+    }
 }
-
 struct ChatAppUser {
     let firstName: String
     let lastName: String

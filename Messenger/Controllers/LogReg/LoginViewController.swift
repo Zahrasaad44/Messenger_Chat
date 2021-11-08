@@ -37,6 +37,13 @@ class LoginViewController: UIViewController {
     
     @IBAction func logInBtmPressed(_ sender: Any) {
         loginUser()
+        
+        guard let email = emailTextField.text, let password = passwordTextField.text, !email.isEmpty, !password.isEmpty else {
+            let unfilledTextFieldsAlert = UIAlertController(title: "Something is Missing ", message: "All fields are required", preferredStyle: .alert)
+            unfilledTextFieldsAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.present(unfilledTextFieldsAlert, animated: true, completion: nil)
+            return
+        }
         spinner.show(in: view)
         
     }
@@ -81,6 +88,10 @@ class LoginViewController: UIViewController {
                 return
             }
             let user = result.user
+            
+            UserDefaults.standard.set(self!.emailTextField.text, forKey: "email")  // to cache user email
+            
+            
             let conVC = self?.storyboard?.instantiateViewController(withIdentifier: "conVC") as! ConversationsViewController
             self?.navigationController?.pushViewController(conVC, animated: true)
             strongSelf.navigationController?.dismiss(animated: true, completion: nil)
