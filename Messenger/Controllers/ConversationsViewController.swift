@@ -54,8 +54,23 @@ class ConversationsViewController: UIViewController {
     
     @objc private func composeBtnPressed() {      // using "@objc" because this function is called in the "#selector"
       let viewIs = NewConversationViewController()
+        viewIs.completion = { [weak self] result in
+            self?.createNewConversation(result: result)
+        }
       let nav = UINavigationController(rootViewController: viewIs)
           present(nav, animated: true)   // If I used "push", the seach bar would be in "ConversationsViewController". I think because I used navigation controller to                                    position the search bar
+    }
+    
+    private func createNewConversation(result: [String: String]) {
+        guard let name = result["name"], let email = result["email"] else {
+            return
+        }
+        let vc = ChatViewController(with: email)
+        vc.isNewConversation = true 
+        vc.title = name
+        vc.navigationItem.largeTitleDisplayMode = .never
+        navigationController?.pushViewController(vc, animated: true)
+        
     }
     
     private func validateAuth() {
@@ -81,7 +96,7 @@ extension ConversationsViewController: UITableViewDataSource, UITableViewDelegat
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "chatCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "chatCell", for: indexPath) 
         cell.textLabel?.text = "Hello World!"
         cell.accessoryType = .disclosureIndicator
         return cell
@@ -90,7 +105,7 @@ extension ConversationsViewController: UITableViewDataSource, UITableViewDelegat
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {  // when the user clicks on a cell(chat) of the conversationsVC's TableView it should go                                                                                  to the ChatVC
         tableView.deselectRow(at: indexPath, animated: true)
         
-        let vc = ChatViewController()
+        let vc = ChatViewController(with: "fake@gmail.com")
         vc.title = "a person's name"
         vc.navigationItem.largeTitleDisplayMode = .never
         navigationController?.pushViewController(vc, animated: true)

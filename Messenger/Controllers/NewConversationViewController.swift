@@ -8,9 +8,9 @@
 import UIKit
 import JGProgressHUD
 
-
-
 class NewConversationViewController: UIViewController {
+    
+    public var completion: (([String: String]) -> (Void))?   // "([String: String])" is a dictionary inside a closure 
     
     private let spinner = JGProgressHUD(style: .dark)
     
@@ -77,8 +77,14 @@ extension NewConversationViewController: UITableViewDataSource, UITableViewDeleg
         cell.textLabel?.text = results[indexPath.row]["name"]
         return cell
     }
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {  // To select a user and start a conversation
         tableView.deselectRow(at: indexPath, animated: true)
+        let selectedUser = results[indexPath.row]
+        dismiss(animated: true, completion: { [weak self] in   // dismissing the "NewConversationVC" after calling the "completion"
+            self?.completion?(selectedUser)
+            
+        })
+        
     }
     
     
