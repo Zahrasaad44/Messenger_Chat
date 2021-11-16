@@ -57,14 +57,7 @@ class RegisterViewController: UIViewController {
     @IBAction func goToLogInBtnPressed(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
     }
-    /*
-    DatabaseManager.shared.userExists(with: regEmailTextField.text!, completion: { exists in
-        guard !exists else {
-            //show alert (error) user already exist, alert
-            return
-        }
-    })
-    */
+    
     func createAccount() {
             Auth.auth().createUser(withEmail: regEmailTextField.text!, password: regPasswordTextField.text!, completion: {authResult, error in
                

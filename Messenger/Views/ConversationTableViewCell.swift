@@ -6,56 +6,37 @@
 //
 
 import UIKit
+import SDWebImage
 
 class ConversationTableViewCell: UITableViewCell {
     
-    static let identifier = "ConversationTableViewCell"
+   // static let identifier = "ConversationTableViewCell"
+    @IBOutlet weak var userImageView: UIImageView!
     
-    private let userImageView: UIImageView = {
-       let userImageView = UIImageView()
-        userImageView.contentMode = .scaleAspectFill
-        userImageView.layer.cornerRadius = 50
-        userImageView.layer.masksToBounds = true
-        return userImageView
-    }()
+    @IBOutlet weak var userNameLabel: UILabel!
     
-    private let userNameLabel: UILabel = {
-       let userNameLabel = UILabel()
-        userNameLabel.font = .systemFont(ofSize: 21, weight: .semibold)
-        return userNameLabel
-    }()
-    
-    private let userMessageLabel: UILabel = {
-       let userMessageLabel = UILabel()
-        userMessageLabel.font = .systemFont(ofSize: 19, weight: .regular)
-        userMessageLabel.numberOfLines = 0 // To allow line wrapping
-        return userMessageLabel
-    }()
-    
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        contentView.addSubview(userImageView)
-        contentView.addSubview(userNameLabel)
-        contentView.addSubview(userMessageLabel)
-    }
+    @IBOutlet weak var userMessageLabel: UILabel!
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        /*
-        userImageView.frame = CGRect(x: 10, y: 10, width: 100, height: 100)
-        userNameLabel.frame = CGRect(x: userImageView.right +  10,
-                                     y: 10, width: contentView.bounds.width -  20 - userImageView.width,
-                                     height: (contentView.height-20)/2)
-        userMessageLabel.frame = CGRect(x: 10, y: 10, width: 100, height: 100)
-        */
-    }
     
-    public func configure(with model : String) {
-        
+    public func configure(with model : Conversation) {
+        self.userMessageLabel.text = model.latestMessage.text
+        self.userNameLabel.text = model.name
+       
+        let imagePath = "image/\(model.otherUserEmail)_profile_picture.png"
+        StorageManager.shared.downloadUrl(for: imagePath, completion: {[weak self] result in
+            switch result {
+            case .success(let url):
+                DispatchQueue.main.async {   // because the profile image is UI related 
+                    self?.userImageView.sd_setImage(with: url, completed: nil)
+                }
+            case .failure(let error):
+                print("failed to get image url: \(error)")
+            }
+        })
     }
 
     override func awakeFromNib() {

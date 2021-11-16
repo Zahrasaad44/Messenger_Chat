@@ -30,6 +30,8 @@
 		C35F1E982729E691003C1A93 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C35F1E972729E691003C1A93 /* LoginViewController.swift */; };
 		C3BBCABC273B3645008FF017 /* ConversationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BBCABB273B3645008FF017 /* ConversationTableViewCell.swift */; };
 		C3BC6E41273413D600D2088E /* JGProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = C3BC6E40273413D600D2088E /* JGProgressHUD */; };
+		C3C98EFB2743041000A1CAB3 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = C3C98EFA2743041000A1CAB3 /* SDWebImage */; };
+		C3C98EFD2743041000A1CAB3 /* SDWebImageMapKit in Frameworks */ = {isa = PBXBuildFile; productRef = C3C98EFC2743041000A1CAB3 /* SDWebImageMapKit */; };
 		C3E599762730B3E000EC9E69 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E599752730B3E000EC9E69 /* DatabaseManager.swift */; };
 		C3EB863A273158FD00A8B930 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C3EB8639273158FD00A8B930 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
@@ -95,6 +97,8 @@
 				C356270327360B9E009E5AA0 /* InputBarAccessoryView in Frameworks */,
 				C3BC6E41273413D600D2088E /* JGProgressHUD in Frameworks */,
 				85A949A2DBD16A7D251050E3 /* Pods_Messenger.framework in Frameworks */,
+				C3C98EFD2743041000A1CAB3 /* SDWebImageMapKit in Frameworks */,
+				C3C98EFB2743041000A1CAB3 /* SDWebImage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -273,6 +277,8 @@
 				C3BC6E40273413D600D2088E /* JGProgressHUD */,
 				C35626FF273609FA009E5AA0 /* MessageKit */,
 				C356270227360B9E009E5AA0 /* InputBarAccessoryView */,
+				C3C98EFA2743041000A1CAB3 /* SDWebImage */,
+				C3C98EFC2743041000A1CAB3 /* SDWebImageMapKit */,
 			);
 			productName = Messenger;
 			productReference = C35F1E522729456F003C1A93 /* Messenger.app */;
@@ -351,9 +357,9 @@
 			mainGroup = C35F1E492729456F003C1A93;
 			packageReferences = (
 				C3BC6E3F273413D600D2088E /* XCRemoteSwiftPackageReference "JGProgressHUD" */,
-				C3BC6E42273416A200D2088E /* XCRemoteSwiftPackageReference "SDWebImage" */,
 				C35626FE273609FA009E5AA0 /* XCRemoteSwiftPackageReference "MessageKit" */,
 				C356270127360B9E009E5AA0 /* XCRemoteSwiftPackageReference "InputBarAccessoryView" */,
+				C3C98EF92743041000A1CAB3 /* XCRemoteSwiftPackageReference "SDWebImage" */,
 			);
 			productRefGroup = C35F1E532729456F003C1A93 /* Products */;
 			projectDirPath = "";
@@ -913,7 +919,7 @@
 				minimumVersion = 2.0.0;
 			};
 		};
-		C3BC6E42273416A200D2088E /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+		C3C98EF92743041000A1CAB3 /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SDWebImage/SDWebImage.git";
 			requirement = {
@@ -938,6 +944,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = C3BC6E3F273413D600D2088E /* XCRemoteSwiftPackageReference "JGProgressHUD" */;
 			productName = JGProgressHUD;
+		};
+		C3C98EFA2743041000A1CAB3 /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C3C98EF92743041000A1CAB3 /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
+		};
+		C3C98EFC2743041000A1CAB3 /* SDWebImageMapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C3C98EF92743041000A1CAB3 /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImageMapKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

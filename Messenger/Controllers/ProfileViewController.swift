@@ -104,7 +104,7 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
                 strongSelf.present(nav, animated: true)
                 
             } catch {
-                print("Failed to log out ")
+                print("Failed to log out")
             }
         }))
         
@@ -113,16 +113,11 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)  //To navigate amoung the controllers of the storyboard (Main)
           let loginVC = storyboard.instantiateViewController(identifier: "LoginVC")
-       // let viewIs = LoginViewController()
         let nav = UINavigationController(rootViewController: loginVC)    // Present LoginViewController if there is no user loggrd in (currentUser == nil)
         nav.modalPresentationStyle = .fullScreen
         present(nav, animated: false)
         
         
-        
-        /*
-        let loginVC = self.storyboard?.instantiateViewController(withIdentifier: "LoginVC") as! LoginViewController
-        self.navigationController?.pushViewController(loginVC, animated: true)
-         */
+    
     }
 }

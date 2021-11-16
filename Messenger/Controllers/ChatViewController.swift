@@ -56,15 +56,23 @@ struct Sender: SenderType {
 class ChatViewController: MessagesViewController{
 
     public var isNewConversation = false
+    
     public var otherUserEmail: String
+    
     private var messages = [Message]()
+    
+    private var conversationId: String?
+    
     private var theSender: Sender? {  // it is optional because if the email doesn't exist in the cache of the UserDefaults it won't return a sender
         guard let email = UserDefaults.standard.value(forKey: "email") as? String else {return nil}
         
-       return Sender(senderId: email, displayName: "zahra", photoURL: "")
+        let safeEmail = DatabaseManager.safeEmail(emailAddress: email)
+        
+       return Sender(senderId: safeEmail, displayName: "Me", photoURL: "")
     }
     
-    init(with email: String) {     // A constructor 
+    init(with email: String, id: String?) {    // A constructor
+        self.conversationId = id
         self.otherUserEmail = email
         super.init(nibName: nil, bundle: nil)
     }
@@ -81,20 +89,45 @@ class ChatViewController: MessagesViewController{
         return formatter
     }()
     
+    private func listenForMessages(id: String, shouldScrollToTheBottom: Bool) {
+        DatabaseManager.shared.getAllMessagesForConversation(with: id, completion: { [weak self] result in
+            switch result {
+            case .success(let messages):
+                guard !messages.isEmpty else {
+                    return
+                }
+                self?.messages = messages
+                
+                DispatchQueue.main.async {
+                    
+                    self?.messagesCollectionView.reloadDataAndKeepOffset() // So if the user scrolled up for older messages, he/she doesn't need to scroll down when a new receiving a new message
+                    if shouldScrollToTheBottom {
+                        self?.messagesCollectionView.scrollToLastItem()
+                    }
+                }
+                
+            case .failure(let error):
+                print("failed to get messages \(error)")
+            }
+        })
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         messagesCollectionView.messagesDataSource = self
         messagesCollectionView.messagesLayoutDelegate = self
         messagesCollectionView.messagesDisplayDelegate = self
         messageInputBar.delegate = self
-       
-
+        
         view.backgroundColor = .gray
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         messageInputBar.inputTextView.becomeFirstResponder()   // To show the kwyboard whenever opening a chat
         
+        if let convoId = conversationId {
+            listenForMessages(id: convoId, shouldScrollToTheBottom: true)
+        }
     }
 }
 
@@ -104,7 +137,6 @@ extension ChatViewController: MessagesDataSource, MessagesLayoutDelegate, Messag
             return sender
         }
         fatalError("The Sender is nil, email should be cached")
-        return Sender(senderId: "45", displayName: "", photoURL: "") // dummy sender in case the email isn't cached
     }
     
     func messageForItem(at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> MessageType {
@@ -138,8 +170,6 @@ extension ChatViewController: InputBarAccessoryViewDelegate {
         } else {
             
         }
-        
-        
     }
     
     private func createMessageId() -> String? {
